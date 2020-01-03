@@ -1294,7 +1294,7 @@ public class EasyPlayerClient implements Client.SourceCallBack {
             Log.i(TAG, "writeFrame ignore due to no key frame!");
             return;
         }
-        long timeStampMillis = stampUS/1000;
+        long timeStampMillis = System.currentTimeMillis(); // . this is always 0 --->>>>stampUS/1000;
         timeStampMillis -= mMuxerCuttingMillis;
         timeStampMillis = Math.max(0, timeStampMillis);
         int r = muxer2.writeFrame(EasyMuxer2.AVMEDIA_TYPE_AUDIO, pcm, 0, length, timeStampMillis);
@@ -1323,7 +1323,7 @@ public class EasyPlayerClient implements Client.SourceCallBack {
 //            frameInfo.offset = 60;
 //            frameInfo.length -= 60;
         }
-        long timeStampMillis = frameInfo.stamp / 1000;
+        long timeStampMillis =  System.currentTimeMillis();// this is always 0 --->>>frameInfo.stamp / 1000;
         timeStampMillis -= mMuxerCuttingMillis;
         timeStampMillis = Math.max(0, timeStampMillis);
         int r = muxer2.writeFrame(EasyMuxer2.AVMEDIA_TYPE_VIDEO, frameInfo.buffer, frameInfo.offset, frameInfo.length, timeStampMillis);
